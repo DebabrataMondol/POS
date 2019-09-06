@@ -1,0 +1,58 @@
+@extends('admin.base')
+
+@section('content')
+
+    <div class="content-wrapper">
+    <div class="row" id="printstockreport" >
+
+        <div class="col-md-12 text-center">
+            @foreach ($supplayers as $supplayer)
+                <h4>{{$supplayer->supplier_name}}</h4>
+                <h6>{{$supplayer->supplier_address}}&nbsp;&nbsp;{{$supplayer->supplier_email}}</h6>
+                <h6> <strong><u>Supplay Date:</u></strong> {{$supplayer->supplier_date}}</h6>
+                <h6> <strong>Contact:</strong> {{$supplayer->supplier_mobile}}</h6>
+                @break
+            @endforeach
+        </div>
+
+        <div class="col-sm-12">
+            <table class="table table-striped table-bordered table-hover"  cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                    <th>Sl.</th>
+                    <th>Date</th>
+                    <th>Invoice Number</th>
+                    <th>Quentity</th>
+                    <th>Cost</th>
+                    <th>Price</th>
+                    <th>Total Cost</th>
+                    <th>Total Price</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                @php($i=1)
+                @foreach ($datesearces as $datesearce)
+                    <tr class="text-center">
+                        <td>{{$i++}}</td>
+                        <td>{{$datesearce->lc_purdate}}</td>
+                        <td>{{$datesearce->lc_stockid}}</td>
+                        <td>{{$datesearce->lc_pquantity}}</td>
+                        <td>{{$datesearce->lc_costbtb}}</td>
+                        <td>{{$datesearce->lc_wprice}}</td>
+                        <td>{{$datesearce->lc_pquantity*$datesearce->lc_costbtb}}</td>
+                        <td>{{$datesearce->lc_wprice}}</td>
+                        <td>
+                            <a title="Show details" href="{{route('show_lc_invoice',['id'=>$datesearce->lc_purchase_id])}}" class="btn btn-info btn-xs" id="show">
+                                <span class="fa fa-eye"></span>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    </div>
+@endsection
